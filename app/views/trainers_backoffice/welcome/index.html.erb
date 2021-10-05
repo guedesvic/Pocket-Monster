@@ -1,0 +1,17 @@
+<body>
+  <div align'"center class="search-box">
+    <div align="center" class="poke-title">
+      <h1>PokéDex</h1>
+    </div align="center">
+
+    <div align="center" class="poke-form">
+      <p>Procure por nome ou número:</p>
+      <%= form_tag '/pokemon', method: :get do %>
+        <div align="center" class="poke-search">
+          <%= text_field_tag :pokemon %>
+          <%= submit_tag "Search" %>
+        </div align="center">
+      <% end %>
+    </div align="center">
+  </div>
+</body>

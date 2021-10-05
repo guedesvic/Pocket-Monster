@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Pocket Monster</title>
+    
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application' %>
+    <%= stylesheet_link_tag 'trainers_backoffice' %>
+  </head>
+
+  <body id="page-top">
+    <div id="wrapper">
+      <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <div class="nav-item p-4">
+          <li class="d-flex justify-content-center">
+            <%= link_to image_tag(avatar_url, alt:"...", class:"img-profile rounded-circle", style:"width: 60px", id: "imgAvatarMd"), '#', "data-toggle":"modal", "data-target":"#avatarModal" %>
+            <span class="d-flex align-items-center text-gray-100 pl-3"> <%= current_trainer.trainer_profile.full_name %> </span> 
+          </li>
+        </div>
+
+        <hr class="sidebar-divider">
+
+        <li class="nav-item">
+          <%= link_to trainers_backoffice_profile_path, class: "nav-link" do %>
+            <i class="fas fa-id-card"></i> Profile
+          <% end %>
+        </li>
+
+        <hr class="sidebar-divider">
+
+        <li class="nav-item">
+          <%= link_to teams_path, class: "nav-link" do %>
+            <i class="fas fa-gamepad"></i> Teams
+          <% end %>
+        </li>
+
+        <hr class="sidebar-divider">
+
+        <li class="nav-item">
+          <%= link_to trainers_backoffice_welcome_index_path, class: "nav-link" do %>
+            <i class="fas fa-dragon"></i> PokeDex
+          <% end %>
+        </li>
+
+      </ul>
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+          <!-- Topbar -->
+          <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+            <!-- Sidebar Toggle (Topbar) -->
+            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                <i class="fa fa-bars"></i>
+            </button>
+            
+            <!-- Topbar Navbar -->
+            <ul class="navbar-nav ml-auto">
+              
+              <!-- Nav Item - Alerts -->
+              <li class="nav-item dropdown no-arrow mx-1">
+                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-bell fa-fw"></i>
+                  <!-- Counter - Alerts -->
+                  <span class="badge badge-danger badge-counter">3+</span>
+                </a>
+                <!-- Dropdown - Alerts -->
+                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                  <h6 class="dropdown-header">
+                      Alerts Center
+                  </h6>
+                  <a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="mr-3">
+                      <div class="icon-circle bg-primary">
+                          <i class="fas fa-file-alt text-white"></i>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="small text-gray-500"> 05 de Outubro, 2021</div>
+                      <span class="font-weight-bold">Victor foi contratado como desenvolvedor junior da Maino!</span>
+                    </div>
+                  </a>
+                  <a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="mr-3">
+                      <div class="icon-circle bg-success">
+                          <i class="fas fa-donate text-white"></i>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="small text-gray-500">05 de Julho, 2022</div>
+                      Victor foi promovido para desenvolvedor pleno!
+                    </div>
+                  </a>
+                  <a class="dropdown-item text-center small text-gray-500" href="#">Mostrar todos os alertas</a>
+                </div>
+              </li>
+
+              <div class="topbar-divider d-none d-sm-block"></div>
+
+              <!-- Nav Item - User Information -->
+              <li class="nav-item dropdown no-arrow">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <%= image_tag avatar_url, alt: '', class:"img-profile rounded-circle", id: "imgAvatarSm" %>
+                  <span class="mr-2 d-none d-lg-inline text-gray-600 small pl-2"><%= current_trainer.email %></span>
+                </a>
+                <!-- Dropdown - User Information -->
+                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                  <%= link_to destroy_trainer_session_path, class:"dropdown-item", method: :delete do %>
+                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Sair
+                  <% end %>
+                </div>
+              </li>
+            </ul>
+          </nav>
+          <div class="container-fluid">
+            <%= yield %>
+          </div>
+        </div>
+          <!-- End of Main Content -->
+          <!-- Footer -->
+          <footer class="bg-white">
+          </footer>
+          <!-- End of Footer -->
+      </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Modal -->
+    <div class="modal fade" id="avatarModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+        <%= form_with(url: trainers_backoffice_profile_path, model: current_trainer, class:"form-horizontal form-label-left") do |form| %>
+          <div class="modal-header">
+              <h3 class="modal-title" id="myModalLabel">Avatar</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <%= form.fields_for :trainer_profile do |profile_form|  %>
+              <div class="form-group">
+                <%= image_tag(avatar_url, alt:"...", class:"img-profile rounded-circle", style:"width:100px", id:"imgAvatarLg") %>
+                <%= profile_form.file_field :avatar %>
+              </div>
+            <% end %>
+            <p>Salve para ver o novo avatar!</p>
+          </div>
+          <div class="modal-footer">
+            <%= form.submit "Salvar", class:"btn btn-primary" %>
+          </div>
+        <% end %>
+        </div>
+      </div>
+    </div>
+    <!-- /Modal -->
+
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'trainers_backoffice' %>
+
+    <% if notice %>
+      <%= javascript_tag do %>
+        $.bootstrapGrowl('<%= notice %>', {
+        ele: 'body', // which element to append to
+        type: 'info', // (null, 'info', 'error', 'success')
+        offset: {from: 'top', amount: 20}, // 'top', or 'bottom'
+        align: 'right', // ('left', 'right', or 'center')
+        allow_dismiss: true,
+        stackup_spacing: 10 // spacing between consecutively stacked growls.
+        });
+      <% end %>
+    <% end %>
+  </body>
+
+</html>

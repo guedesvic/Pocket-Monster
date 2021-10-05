@@ -1,0 +1,2 @@
+module TrainersBackoffice::WelcomeHelper
+end

@@ -1,0 +1,19 @@
+<div class="result-box">
+  <div align="center">
+    <h1><%= @pokemon.name %></h1>
+  </div>
+
+  <div align="center">
+    <p>Número: <%= @pokemon.number %></p>
+    <p>Tipo: <%= @pokemon.type %></p>
+    <%= image_tag "#{@pokemon.image}" %>
+  </div>
+  
+  <%= form_tag '/pokemon', method: :get do %>
+    <div align="center" class="poke-search">
+      <p>Procure por outro Pokémon:</p>
+      <%= text_field_tag :pokemon %>
+      <%= submit_tag "Search" %>
+    </div align="center">
+  <% end %>
+</div>

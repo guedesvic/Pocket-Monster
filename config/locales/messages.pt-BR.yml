@@ -1,0 +1,8 @@
+'pt-BR':
+  messages:
+    new: Novo %{model}
+    listing: Listando %{model}
+    editing: Editando %{model}
+    confirm_exclusion: Tem certeza que deseja excluir?
+  buttons:
+    save: Salvar
